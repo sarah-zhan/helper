@@ -424,26 +424,26 @@ const OrderTable = () => {
 			sorter: (a, b) => a.status?.localeCompare(b.status),
 			sortOrder: sortedInfo.columnKey === 'status' && sortedInfo.order,
 			...getColumnSearchProps('status'),
-			render: status => {
-				let tagColor;
-				switch (status) {
-					case 'processing':
-						tagColor = 'yellow';
-						break;
-					case 'pending':
-						tagColor = 'blue';
-						break;
-					case 'canceled':
-						tagColor = 'volcano';
-						break;
-					case 'complete':
-						tagColor = 'green';
-						break;
-					default:
-						tagColor = 'volcano';
-				}
-				return <Tag color={tagColor}>{status.toUpperCase()}</Tag>;
-			},
+			// render: status => {
+			// 	let tagColor;
+			// 	switch (status) {
+			// 		case 'processing':
+			// 			tagColor = 'yellow';
+			// 			break;
+			// 		case 'pending':
+			// 			tagColor = 'blue';
+			// 			break;
+			// 		case 'canceled':
+			// 			tagColor = 'volcano';
+			// 			break;
+			// 		case 'complete':
+			// 			tagColor = 'green';
+			// 			break;
+			// 		default:
+			// 			tagColor = 'volcano';
+			// 	}
+			// 	return <Tag color={tagColor}>{status.toUpperCase()}</Tag>;
+			// },
 		},
 
 		{
@@ -658,55 +658,50 @@ const OrderTable = () => {
 					<>
 						<Form.Item>
 							<Space size='middle'>
-							<Tooltip title='Edit Order'>
-								<button
-									className='btn btn-sm btn-outline-warning'
-									onClick={() => {
-										setEditingRow(record.key);
-										form.setFieldsValue({
-											customer_email: record.customer_email,
-											customer_firstname: record.customer_firstname,
-											customer_lastname: record.customer_lastname,
-											grand_total: record.grand_total,
-											total_qty_ordered: record.total_qty_ordered,
-											entity_id: record.entity_id,
-											created_at: record.created_at,
-											increment_id: record.increment_id,
-										});
-									}}
-								>
-									<Edit />
-								</button>
+								<Tooltip title='Edit Order'>
+									<button
+										className='btn btn-sm btn-outline-warning'
+										onClick={() => {
+											setEditingRow(record.key);
+											form.setFieldsValue({
+												customer_email: record.customer_email,
+												customer_firstname: record.customer_firstname,
+												customer_lastname: record.customer_lastname,
+												grand_total: record.grand_total,
+												total_qty_ordered: record.total_qty_ordered,
+												entity_id: record.entity_id,
+												created_at: record.created_at,
+												increment_id: record.increment_id,
+											});
+										}}
+									>
+										<Edit />
+									</button>
 								</Tooltip>
 								<Tooltip title='Delete Order'>
-
-								<button
-									className='btn btn-sm btn-outline-danger'
-									onClick={() => handleDeleteOrder(record)}
-								>
-
-									<Trash />
-								</button>
+									<button
+										className='btn btn-sm btn-outline-danger'
+										onClick={() => handleDeleteOrder(record)}
+									>
+										<Trash />
+									</button>
 								</Tooltip>
 								<Tooltip title='Save changes'>
-
-								<button
-									className='btn btn-sm btn-outline-success'
-									onClick={handleSave}
-								>
-									<Save />
-								</button>
+									<button
+										className='btn btn-sm btn-outline-success'
+										onClick={handleSave}
+									>
+										<Save />
+									</button>
 								</Tooltip>
 								<Tooltip title='Refresh'>
-
-								<button
-									className='btn btn-sm btn-outline-info'
-									onClick={refreshPage}
-								>
-									<Reload />
-								</button>
+									<button
+										className='btn btn-sm btn-outline-info'
+										onClick={refreshPage}
+									>
+										<Reload />
+									</button>
 								</Tooltip>
-
 							</Space>
 						</Form.Item>
 					</>
