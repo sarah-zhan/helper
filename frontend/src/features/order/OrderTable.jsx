@@ -247,9 +247,16 @@ const OrderTable = () => {
 	const onFinish = values => {
 		const updatedOrders = [...orders];
 		const index = updatedOrders.findIndex(obj => obj.entity_id === editingRow);
+		console.log('editingRow: ', editingRow);
+
+		console.log('updatedOrders: ', updatedOrders);
+		console.log('index: ', index);
+
 		updatedOrders.splice(index, 1, {
 			...values,
-			key: index,
+			// key: index,
+			key: values.entity_id,
+			status: values.status,
 		});
 
 		setOrders(updatedOrders);
@@ -416,35 +423,35 @@ const OrderTable = () => {
 				}
 			},
 		},
-		{
-			title: 'Status',
-			dataIndex: 'status',
-			key: 'status',
-			align: 'center',
-			sorter: (a, b) => a.status?.localeCompare(b.status),
-			sortOrder: sortedInfo.columnKey === 'status' && sortedInfo.order,
-			...getColumnSearchProps('status'),
-			// render: status => {
-			// 	let tagColor;
-			// 	switch (status) {
-			// 		case 'processing':
-			// 			tagColor = 'yellow';
-			// 			break;
-			// 		case 'pending':
-			// 			tagColor = 'blue';
-			// 			break;
-			// 		case 'canceled':
-			// 			tagColor = 'volcano';
-			// 			break;
-			// 		case 'complete':
-			// 			tagColor = 'green';
-			// 			break;
-			// 		default:
-			// 			tagColor = 'volcano';
-			// 	}
-			// 	return <Tag color={tagColor}>{status.toUpperCase()}</Tag>;
-			// },
-		},
+		// {
+		// 	title: 'Status',
+		// 	dataIndex: 'status',
+		// 	key: 'status',
+		// 	align: 'center',
+		// 	sorter: (a, b) => a.status?.localeCompare(b.status),
+		// 	sortOrder: sortedInfo.columnKey === 'status' && sortedInfo.order,
+		// 	...getColumnSearchProps('status'),
+		// render: status => {
+		// 	let tagColor;
+		// 	switch (status) {
+		// 		case 'processing':
+		// 			tagColor = 'yellow';
+		// 			break;
+		// 		case 'pending':
+		// 			tagColor = 'blue';
+		// 			break;
+		// 		case 'canceled':
+		// 			tagColor = 'volcano';
+		// 			break;
+		// 		case 'complete':
+		// 			tagColor = 'green';
+		// 			break;
+		// 		default:
+		// 			tagColor = 'volcano';
+		// 	}
+		// 	return <Tag color={tagColor}>{status.toUpperCase()}</Tag>;
+		// },
+		// },
 
 		{
 			title: 'Created_Date',
@@ -672,6 +679,7 @@ const OrderTable = () => {
 												entity_id: record.entity_id,
 												created_at: record.created_at,
 												increment_id: record.increment_id,
+												status: record.status,
 											});
 										}}
 									>
@@ -1085,11 +1093,11 @@ const OrderTable = () => {
 				},
 			},
 		];
-		const total_cost = record.items.reduce(
+		const total_cost = record.items?.reduce(
 			(acc, record) => acc + record.qty_ordered * record.selected_supplier_cost,
 			0
 		);
-		const total_price = record.items.reduce(
+		const total_price = record.items?.reduce(
 			(acc, record) => acc + record.price * record.qty_ordered,
 			0
 		);
